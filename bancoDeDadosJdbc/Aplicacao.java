@@ -1,5 +1,7 @@
 package exercicios.bancoDeDadosJdbc;
 
+import exercicios.bancoDeDadosJdbc.modelo.Operacoes;
+
 import java.util.Scanner;
 
 public class Aplicacao {
@@ -9,34 +11,29 @@ public class Aplicacao {
 
         Scanner entrada = new Scanner(System.in);
 
-        System.out.print("""
+        int opcao;
+
+        do {
+            System.out.print("""
                 1 - Mostrar Todos
                 2 - Buscar
                 3 - Adicionar
                 4 - Excluir
                 5 - Sair
                 Escolha uma opção:\s""");
-        int opcao = entrada.nextInt();
 
-        while(opcao != 5) {
+            opcao = entrada.nextInt();
+
             switch (opcao) {
                 case 1 -> op.mostrarTodos();
-                case 2 -> op.buscarPorNome();
+                case 2 -> op.buscar();
                 case 3 -> op.adicionar();
                 case 4 -> op.excluir();
-                default -> System.out.println("\nOpção inválida! Tente novamente.");
             }
 
-            System.out.print("""
+            System.out.println();
 
-                    1 - Mostrar Todos
-                    2 - Buscar
-                    3 - Adicionar
-                    4 - Excluir
-                    5 - Sair
-                    Escolha uma opção:\s""");
-            opcao = entrada.nextInt();
-        }
+        } while(opcao != 5);
 
         op.fecharConexao();
         entrada.close();

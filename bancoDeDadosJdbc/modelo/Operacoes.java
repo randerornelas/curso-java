@@ -1,4 +1,6 @@
-package exercicios.bancoDeDadosJdbc;
+package exercicios.bancoDeDadosJdbc.modelo;
+
+import exercicios.bancoDeDadosJdbc.infra.DAO;
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,8 +19,9 @@ public class Operacoes {
         }
     }
 
-    public void buscarPorNome() {
+    public void buscar() {
 
+        Pessoa pessoa = new Pessoa();
         List<Pessoa> listaPorNome;
 
         Scanner entrada = new Scanner(System.in);
@@ -28,7 +31,9 @@ public class Operacoes {
         System.out.print("Digite um nome para pesquisar: ");
         String nome = entrada.nextLine();
 
-        listaPorNome = dao.buscarPorNome(nome);
+        pessoa.setNome(nome);
+
+        listaPorNome = dao.buscar(pessoa);
 
         for(Pessoa p: listaPorNome) {
             System.out.printf("%s\t\t%d\t\t%s", p.getNome(), p.getIdade(), p.getEmail());
@@ -62,16 +67,19 @@ public class Operacoes {
 
     public void excluir() {
 
+        Pessoa pessoa = new Pessoa();
         Scanner entrada = new Scanner(System.in);
 
-        buscarPorNome();
+        buscar();
 
         System.out.print("\nDigite o e-mail para excluir: ");
         String email = entrada.nextLine();
 
-        dao.excluir(email);
+        pessoa.setEmail(email);
 
-        System.out.println("\nPessoa excluída com sucesso!");
+        dao.excluir(pessoa);
+
+        System.out.println("Pessoa excluída com sucesso!");
     }
 
     public void fecharConexao() {

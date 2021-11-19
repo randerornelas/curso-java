@@ -1,10 +1,14 @@
-package exercicios.bancoDeDadosJdbc;
+package exercicios.bancoDeDadosJdbc.modelo;
 
 public class Pessoa {
 
     private String nome;
     private String email;
     private int idade;
+
+    public Pessoa() {
+
+    }
 
     public Pessoa(String nome, int idade, String email) {
         setNome(nome);

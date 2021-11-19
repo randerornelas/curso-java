@@ -1,4 +1,6 @@
-package exercicios.bancoDeDadosJdbc;
+package exercicios.bancoDeDadosJdbc.infra;
+
+import exercicios.bancoDeDadosJdbc.modelo.Pessoa;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ public class DAO {
     }
 
     public List<Pessoa> mostrarTodos() {
+
         List<Pessoa> pessoas = new ArrayList<>();
         ResultSet resultado;
         String sql = "SELECT * FROM pessoas";
@@ -44,7 +47,8 @@ public class DAO {
         return pessoas;
     }
 
-    public List<Pessoa> buscarPorNome(String nome) {
+    public List<Pessoa> buscar(Pessoa pessoa) {
+
         List<Pessoa> pessoas = new ArrayList<>();
         ResultSet resultado;
         String sql = "SELECT * FROM pessoas WHERE nome LIKE ?";
@@ -52,7 +56,7 @@ public class DAO {
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, "%" + nome + "%");
+            stmt.setString(1, "%" + pessoa.getNome() + "%");
 
             resultado = stmt.executeQuery();
 
@@ -95,13 +99,13 @@ public class DAO {
         }
     }
 
-    public void excluir(String email) {
+    public void excluir(Pessoa pessoa) {
         String sql = "DELETE FROM pessoas WHERE email = ?";
 
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, email);
+            stmt.setString(1, pessoa.getEmail());
 
             stmt.execute();
             stmt.close();
